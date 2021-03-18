@@ -5,7 +5,8 @@
     "web": "svelte-kit dev --open",
     "web.build": "svelte-kit build",
     "desktop": "tauri dev",
-    "desktop.build": "tauri build"
+    "desktop.build": "tauri build",
+    "tauri": "tauri"
   },
   "devDependencies": {
     "@aicacia/debounce": "^0.1.9",

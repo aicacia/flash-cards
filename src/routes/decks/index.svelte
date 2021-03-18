@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createDeck, deckStore, deleteDeck } from "../../state/decks";
+  import { createDeck, deckStore, deleteDeck } from "$lib/state/decks";
 
   let name = "";
   let search = "";

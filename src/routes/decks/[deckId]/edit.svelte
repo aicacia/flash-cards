@@ -3,19 +3,26 @@
     page: { params: { deckId: string } };
   }) {
     return {
-      props: { deckId: request.page.params.deckId },
+      props: request.page.params,
     };
   }
 </script>
 
 <script lang="ts">
-  import { createCard, deleteCard, cardStore } from "../../../state/cards";
-  import { deckStore, updateDeckDebounced } from "../../../state/decks";
+  import { createCard, deleteCard, cardStore } from "$lib/state/cards";
+  import { deckStore, updateDeckDebounced } from "$lib/state/decks";
 
   export let deckId: string;
 
-  let name = $deckStore.table.byId(deckId)?.name || "";
+  $: deck = $deckStore.table.byId(deckId);
+  let init = false;
+  let name: string;
   let deleteCardId: string;
+
+  $: if (deck && !init) {
+    init = true;
+    name = deck.name;
+  }
 
   function onChangeName() {
     updateDeckDebounced(deckId, { name });
@@ -32,7 +39,7 @@
 </script>
 
 <svelte:head>
-  <title>Deck {deckId}</title>
+  <title>Edit Deck {deckId}</title>
 </svelte:head>
 
 <div>
@@ -49,22 +56,42 @@
     on:input="{onChangeName}" />
 </div>
 
-{#each $cardStore.table.rows.filter((card) => card.deckId === deckId) as card}
-  <div>
-    <button
-      type="button"
-      class="btn btn-danger"
-      data-bs-toggle="modal"
-      data-bs-target="#delete-modal"
-      on:click="{() => onOpenDeleteModal(card.id)}">
-      Delete
-    </button>
-  </div>
-{/each}
+<div class="list-group mt-2">
+  {#each $cardStore.table.rows.filter((card) => card.deckId === deckId) as card}
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex justify-content-between">
+        <div>
+          <div class="overflow-hidden" style="max-height:32px">
+            {card.front}
+          </div>
+          <div class="overflow-hidden" style="max-height:32px">
+            {card.back}
+          </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="List Options">
+          <a
+            type="button"
+            class="btn btn-primary"
+            href="{`/decks/${deckId}/cards/${card.id}/edit`}">Edit</a>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#delete-modal"
+            on:click="{() => onOpenDeleteModal(deck.id)}">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  {/each}
+</div>
 
-<div>
-  <button type="button" class="btn btn-primary" on:click="{onCreateCard}"
-    >Create</button>
+<div class="clearfix">
+  <button
+    type="button"
+    class="btn float-end btn-primary"
+    on:click="{onCreateCard}">Create</button>
 </div>
 
 <div
