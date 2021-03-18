@@ -1,7 +1,7 @@
 # Flash Cards
 
 [![license](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)](LICENSE-MIT)
-[![site](https://img.shields.io/badge/www-flash-cards-aicacia-blue.svg)](https://flash-cards.aicacia.com/)
+[![site](https://img.shields.io/badge/www-flash_cards_aicacia-blue.svg)](https://flash-cards.aicacia.com/)
 [![build](https://github.com/aicacia/flash_cards/workflows/Build/badge.svg)](https://github.com/aicacia/flash_cards/actions?query=workflow%3ABuild)
 
 ## Tech
