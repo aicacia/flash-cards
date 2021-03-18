@@ -1,6 +1,6 @@
 {
   "name": "flash_cards",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "web": "svelte-kit dev",
     "web.build": "svelte-kit build",
