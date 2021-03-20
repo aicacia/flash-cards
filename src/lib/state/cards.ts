@@ -1,16 +1,12 @@
+import { debounce } from "@aicacia/debounce";
 import Automerge from "automerge";
+import type { Delta } from "typewriter-editor";
 import { createStore } from "./store";
-
-function createText(defaultText = "") {
-  const text = new Automerge.Text();
-  text.insertAt && text.insertAt(0, defaultText);
-  return text;
-}
 
 export interface ICard {
   deckId: string;
-  front: Automerge.Text;
-  back: Automerge.Text;
+  front?: Delta;
+  back?: Delta;
   createdAt: string;
   updatedAt: string;
 }
@@ -27,8 +23,6 @@ export function createCard(deckId: string) {
   cardStore.update((state) => {
     const now = new Date().toJSON();
     id = state.table.add({
-      front: createText("Front"),
-      back: createText("Back"),
       deckId,
       createdAt: now,
       updatedAt: now,
@@ -37,27 +31,18 @@ export function createCard(deckId: string) {
   return id;
 }
 
-export function updateCardFront(
+export function updateCard(
   id: string,
-  updater: (front: Automerge.Text) => Automerge.Text
+  updater: (row: ICard & Automerge.TableRow) => void
 ) {
   cardStore.update((state) => {
     const row = state.table.byId(id);
-    row.front = updater(row.front);
+    updater(row);
     row.updatedAt = new Date().toJSON();
   }, `Update Card ${id} front`);
 }
 
-export function updateCardBack(
-  id: string,
-  updater: (front: Automerge.Text) => Automerge.Text
-) {
-  cardStore.update((state) => {
-    const row = state.table.byId(id);
-    row.back = updater(row.back);
-    row.updatedAt = new Date().toJSON();
-  }, `Update Card ${id} back`);
-}
+export const debounceUpdateCard = debounce(updateCard, 1000);
 
 export function deleteCard(id: string) {
   cardStore.update((state) => {

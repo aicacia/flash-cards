@@ -9,18 +9,19 @@
 </script>
 
 <script lang="ts">
+  import Display from "$lib/Display.svelte";
   import { createCard, deleteCard, cardStore } from "$lib/state/cards";
   import { deckStore, updateDeckDebounced } from "$lib/state/decks";
 
   export let deckId: string;
 
   $: deck = $deckStore.table.byId(deckId);
-  let init = false;
+  let loaded = false;
   let name: string;
   let deleteCardId: string;
 
-  $: if (deck && !init) {
-    init = true;
+  $: if (deck && !loaded) {
+    loaded = true;
     name = deck.name;
   }
 
@@ -42,7 +43,7 @@
   <title>Edit Deck {deckId}</title>
 </svelte:head>
 
-<div>
+<div class="mt-2 mb-2">
   <a type="button" class="btn btn-primary" href="/decks">Back</a>
 </div>
 
@@ -62,10 +63,10 @@
       <div class="d-flex justify-content-between">
         <div>
           <div class="overflow-hidden" style="max-height:32px">
-            {card.front}
+            <Display delta="{card.front}" />
           </div>
           <div class="overflow-hidden" style="max-height:32px">
-            {card.back}
+            <Display delta="{card.back}" />
           </div>
         </div>
         <div class="btn-group" role="group" aria-label="List Options">

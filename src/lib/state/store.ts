@@ -1,6 +1,7 @@
 import { debounce } from "@aicacia/debounce";
 import Automerge from "automerge";
 import { forage } from "@tauri-apps/tauri-forage";
+import { writable } from "svelte/store";
 import { getNodeId } from "./nodeId";
 
 const DEFAULT_TIMEOUT = 1000;

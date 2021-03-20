@@ -16,11 +16,11 @@
     "automerge": "^0.14.2",
     "sass": "^1.32.8",
     "svelte": "^3.35.0",
-    "svelte-hmr": "0.13.1",
     "svelte-preprocess": "^4.6.9",
     "tauri": "^0.14.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3",
+    "typewriter-editor": "^0.6.7",
     "vite": "^2.1.2"
   },
   "type": "module",
