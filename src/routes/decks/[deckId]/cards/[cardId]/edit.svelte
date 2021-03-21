@@ -9,7 +9,8 @@
 </script>
 
 <script lang="ts">
-  import { cardStore, updateCard } from "$lib/state/cards";
+  import { goto } from "$app/navigation";
+  import { cardStore, createCard, updateCard } from "$lib/state/cards";
   import Editor from "$lib/Editor.svelte";
   import type { Delta, EditorChangeEvent } from "typewriter-editor";
 
@@ -43,6 +44,11 @@
       row.back = event.detail.doc.toJSON();
     });
   }
+
+  function onCreateCard() {
+    const id = createCard(deckId);
+    goto(`/decks/${deckId}/cards/${id}/edit`);
+  }
 </script>
 
 <svelte:head>
@@ -54,6 +60,21 @@
     >Back</a>
 </div>
 
-<Editor delta="{front}" on:change="{onFrontChange}" />
-<hr class="mt-2 mb-2" />
-<Editor delta="{back}" on:change="{onBackChange}" />
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <h3>Front</h3>
+      <Editor delta="{front}" on:change="{onFrontChange}" />
+      <hr class="mt-2 mb-2" />
+      <h3>Back</h3>
+      <Editor delta="{back}" on:change="{onBackChange}" />
+    </div>
+  </div>
+</div>
+
+<div class="mt-2 clearfix">
+  <button
+    type="button"
+    class="btn btn-primary float-end"
+    on:click="{onCreateCard}">Create Another Card</button>
+</div>

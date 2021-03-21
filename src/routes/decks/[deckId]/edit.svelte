@@ -69,26 +69,28 @@
             <Display delta="{card.back}" />
           </div>
         </div>
-        <div class="btn-group" role="group" aria-label="List Options">
-          <a
-            type="button"
-            class="btn btn-primary"
-            href="{`/decks/${deckId}/cards/${card.id}/edit`}">Edit</a>
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-bs-toggle="modal"
-            data-bs-target="#delete-modal"
-            on:click="{() => onOpenDeleteModal(deck.id)}">
-            Delete
-          </button>
+        <div>
+          <div class="btn-group" role="group" aria-label="List Options">
+            <a
+              type="button"
+              class="btn btn-primary"
+              href="{`/decks/${deckId}/cards/${card.id}/edit`}">Edit</a>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#delete-modal"
+              on:click="{() => onOpenDeleteModal(deck.id)}">
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
   {/each}
 </div>
 
-<div class="clearfix">
+<div class="clearfix mt-4">
   <button
     type="button"
     class="btn float-end btn-primary"

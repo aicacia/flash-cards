@@ -6,6 +6,7 @@
     "web.build": "svelte-kit build",
     "desktop": "tauri dev",
     "desktop.build": "tauri build",
+    "svelte-kit": "svelte-kit",
     "tauri": "tauri"
   },
   "devDependencies": {

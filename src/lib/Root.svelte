@@ -36,6 +36,6 @@
   });
 </script>
 
-<div bind:this="{root}">
+<div bind:this="{root}" class="pt-2">
   <slot />
 </div>
